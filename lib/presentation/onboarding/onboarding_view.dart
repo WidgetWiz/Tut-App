@@ -26,6 +26,13 @@ class _OnboardingViewState extends State<OnboardingView> {
             ImageAssets.onboardingLogo3),
         SliderObject(AppStrings.onBoardingTitle4, AppStrings.onBoardingDesc4,
             ImageAssets.onboardingLogo4),
+        SliderObject(AppStrings.onBoardingTitle1, AppStrings.onBoardingDesc1,
+            ImageAssets.onboardingLogo1),
+        SliderObject(AppStrings.onBoardingTitle2, AppStrings.onBoardingDesc2,
+            ImageAssets.onboardingLogo2),
+        SliderObject(AppStrings.onBoardingTitle3, AppStrings.onBoardingDesc3,
+            ImageAssets.onboardingLogo3),
+        // todo: remove duplicates
       ];
 
   @override
