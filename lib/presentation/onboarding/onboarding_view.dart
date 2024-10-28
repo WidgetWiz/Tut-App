@@ -65,7 +65,8 @@ class _OnboardingViewState extends State<OnboardingView> {
                     textAlign: TextAlign.end,
                   )),
             ),
-            _getBottomSheetWidget(context),
+            //_getBottomSheetWidget(context),
+            // ToDo : bottom sheet Implementation
           ],
         ),
       ),
