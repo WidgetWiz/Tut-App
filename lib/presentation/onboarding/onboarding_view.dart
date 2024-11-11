@@ -55,8 +55,8 @@ class _OnboardingViewState extends State<OnboardingView> {
           }),
       bottomSheet: Container(
         color: ColorManager.white,
-        height: AppSize.s100,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Align(
               alignment: Alignment.centerRight,
@@ -79,55 +79,54 @@ class _OnboardingViewState extends State<OnboardingView> {
   }
 
   Widget _getBottomSheetWidget() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        //left arrow
-        Padding(
-          padding: const EdgeInsets.all(AppPadding.p14),
-          child: GestureDetector(
-              child: SizedBox(
-                width: AppSize.s20,
-                height: AppSize.s20,
-                child: SvgPicture.asset(ImageAssets.left_arrow),
-              ),
-              onTap: () {
-                //go to previous slide
-                _pageController.animateToPage(_getPreviousIndex(),
-                    duration: Duration(
-                        milliseconds: AppConstants.sliderAnimationTime),
-                    curve: Curves.bounceInOut);
-              }),
-        ),
-        Row(children: [
-          for (int i = 0; i < _list.length; i++)
-            Padding(
-              padding: const EdgeInsets.all(AppPadding.p8),
-              child: _getProperCircle(i),
-            )
-        ]),
-
-        //right arrow
-        Padding(
-          padding: const EdgeInsets.all(AppPadding.p14),
-          child: GestureDetector(
-              child: SizedBox(
-                width: AppSize.s20,
-                height: AppSize.s20,
-                child: SvgPicture.asset(ImageAssets.right_arrow),
-              ),
-              onTap: () {
-                onTap:
-                () {
+    return Container(
+      color: ColorManager.primary,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          //left arrow
+          Padding(
+            padding: const EdgeInsets.all(AppPadding.p14),
+            child: GestureDetector(
+                child: SizedBox(
+                  width: AppSize.s20,
+                  height: AppSize.s20,
+                  child: SvgPicture.asset(ImageAssets.left_arrow),
+                ),
+                onTap: () {
                   //go to previous slide
+                  _pageController.animateToPage(_getPreviousIndex(),
+                      duration: Duration(
+                          milliseconds: AppConstants.sliderAnimationTime),
+                      curve: Curves.bounceInOut);
+                }),
+          ),
+          Row(children: [
+            for (int i = 0; i < _list.length; i++)
+              Padding(
+                padding: const EdgeInsets.all(AppPadding.p8),
+                child: _getProperCircle(i),
+              )
+          ]),
+
+          //right arrow
+          Padding(
+            padding: const EdgeInsets.all(AppPadding.p14),
+            child: GestureDetector(
+                child: SizedBox(
+                  width: AppSize.s20,
+                  height: AppSize.s20,
+                  child: SvgPicture.asset(ImageAssets.right_arrow),
+                ),
+                onTap: () {
                   _pageController.animateToPage(_getNextIndex(),
                       duration: Duration(
                           milliseconds: AppConstants.sliderAnimationTime),
                       curve: Curves.bounceInOut);
-                };
-              }),
-        ),
-      ],
+                }),
+          ),
+        ],
+      ),
     );
   }
 
