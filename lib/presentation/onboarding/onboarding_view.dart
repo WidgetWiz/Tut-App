@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wellos/presentation/resources/assets_manager.dart';
 import 'package:wellos/presentation/resources/color_manager.dart';
+import 'package:wellos/presentation/resources/constanst_manager.dart';
+import 'package:wellos/presentation/resources/routes_manager.dart';
 import 'package:wellos/presentation/resources/stringes_manager.dart';
 import 'package:wellos/presentation/resources/values_manager.dart';
 
@@ -26,13 +29,6 @@ class _OnboardingViewState extends State<OnboardingView> {
             ImageAssets.onboardingLogo3),
         SliderObject(AppStrings.onBoardingTitle4, AppStrings.onBoardingDesc4,
             ImageAssets.onboardingLogo4),
-        SliderObject(AppStrings.onBoardingTitle1, AppStrings.onBoardingDesc1,
-            ImageAssets.onboardingLogo1),
-        SliderObject(AppStrings.onBoardingTitle2, AppStrings.onBoardingDesc2,
-            ImageAssets.onboardingLogo2),
-        SliderObject(AppStrings.onBoardingTitle3, AppStrings.onBoardingDesc3,
-            ImageAssets.onboardingLogo3),
-        // todo: remove duplicates
       ];
 
   @override
@@ -65,19 +61,98 @@ class _OnboardingViewState extends State<OnboardingView> {
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(context, Routes.loginRoute);
+                  },
                   child: Text(
                     AppStrings.skip,
                     style: Theme.of(context).textTheme.titleMedium,
                     textAlign: TextAlign.end,
                   )),
             ),
-            //_getBottomSheetWidget(context),
-            // ToDo : bottom sheet Implementation
+            // widget indicator
+            _getBottomSheetWidget(),
           ],
         ),
       ),
     );
+  }
+
+  Widget _getBottomSheetWidget() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        //left arrow
+        Padding(
+          padding: const EdgeInsets.all(AppPadding.p14),
+          child: GestureDetector(
+              child: SizedBox(
+                width: AppSize.s20,
+                height: AppSize.s20,
+                child: SvgPicture.asset(ImageAssets.left_arrow),
+              ),
+              onTap: () {
+                //go to previous slide
+                _pageController.animateToPage(_getPreviousIndex(),
+                    duration: Duration(
+                        milliseconds: AppConstants.sliderAnimationTime),
+                    curve: Curves.bounceInOut);
+              }),
+        ),
+        Row(children: [
+          for (int i = 0; i < _list.length; i++)
+            Padding(
+              padding: const EdgeInsets.all(AppPadding.p8),
+              child: _getProperCircle(i),
+            )
+        ]),
+
+        //right arrow
+        Padding(
+          padding: const EdgeInsets.all(AppPadding.p14),
+          child: GestureDetector(
+              child: SizedBox(
+                width: AppSize.s20,
+                height: AppSize.s20,
+                child: SvgPicture.asset(ImageAssets.right_arrow),
+              ),
+              onTap: () {
+                onTap:
+                () {
+                  //go to previous slide
+                  _pageController.animateToPage(_getNextIndex(),
+                      duration: Duration(
+                          milliseconds: AppConstants.sliderAnimationTime),
+                      curve: Curves.bounceInOut);
+                };
+              }),
+        ),
+      ],
+    );
+  }
+
+  int _getPreviousIndex() {
+    if (_currentIndex <= 0) {
+      return _list.length - 1;
+    } else {
+      return _currentIndex - 1;
+    }
+  }
+
+  int _getNextIndex() {
+    if (_currentIndex >= _list.length - 1) {
+      return 0;
+    } else {
+      return _currentIndex + 1;
+    }
+  }
+
+  Widget _getProperCircle(int index) {
+    if (index == _currentIndex) {
+      return SvgPicture.asset(ImageAssets.hollow_circle_ic);
+    } else {
+      return SvgPicture.asset(ImageAssets.solid_circle_ic);
+    }
   }
 }
 
@@ -109,7 +184,7 @@ class OnboardingScreen extends StatelessWidget {
           ),
         ),
         const SizedBox(height: AppSize.s60),
-        Image.asset(_sliderObject.image),
+        SvgPicture.asset(_sliderObject.image),
       ],
     );
   }
