@@ -8,6 +8,8 @@ import 'package:wellos/presentation/resources/routes_manager.dart';
 import 'package:wellos/presentation/resources/stringes_manager.dart';
 import 'package:wellos/presentation/resources/values_manager.dart';
 
+import '../../../app/domain/models.dart';
+
 class OnboardingView extends StatefulWidget {
   const OnboardingView({super.key});
 
@@ -16,20 +18,8 @@ class OnboardingView extends StatefulWidget {
 }
 
 class _OnboardingViewState extends State<OnboardingView> {
-  late final List<SliderObject> _list = _getSliderData();
   final PageController _pageController = PageController();
   int _currentIndex = 0;
-
-  List<SliderObject> _getSliderData() => [
-        SliderObject(AppStrings.onBoardingTitle1, AppStrings.onBoardingDesc1,
-            ImageAssets.onboardingLogo1),
-        SliderObject(AppStrings.onBoardingTitle2, AppStrings.onBoardingDesc2,
-            ImageAssets.onboardingLogo2),
-        SliderObject(AppStrings.onBoardingTitle3, AppStrings.onBoardingDesc3,
-            ImageAssets.onboardingLogo3),
-        SliderObject(AppStrings.onBoardingTitle4, AppStrings.onBoardingDesc4,
-            ImageAssets.onboardingLogo4),
-      ];
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +92,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                 }),
           ),
           Row(children: [
+            // circle indicator
             for (int i = 0; i < _list.length; i++)
               Padding(
                 padding: const EdgeInsets.all(AppPadding.p8),
@@ -153,10 +144,17 @@ class _OnboardingViewState extends State<OnboardingView> {
       return SvgPicture.asset(ImageAssets.solid_circle_ic);
     }
   }
+
+  @override
+  void dispose() {
+    // TODO: viewmodel dispose
+    super.dispose();
+  }
 }
 
 class OnboardingScreen extends StatelessWidget {
   final SliderObject _sliderObject;
+
   const OnboardingScreen(this._sliderObject, {super.key});
 
   @override
@@ -187,12 +185,4 @@ class OnboardingScreen extends StatelessWidget {
       ],
     );
   }
-}
-
-class SliderObject {
-  String title;
-  String subTitle;
-  String image;
-
-  SliderObject(this.title, this.subTitle, this.image);
 }
