@@ -82,7 +82,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                     )),
               ),
               // widget indicator
-              _getBottomSheetWidget(),
+              _getBottomSheetWidget(sliderViewObject),
             ],
           ),
         ),

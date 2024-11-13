@@ -118,7 +118,7 @@ class _OnboardingViewState extends State<OnboardingView> {
             for (int i = 0; i < sliderViewObject!.numOfSlides; i++)
               Padding(
                 padding: const EdgeInsets.all(AppPadding.p8),
-                child: _getProperCircle(i, sliderViewObject!.currentIndex),
+                child: _getProperCircle(i, sliderViewObject.currentIndex),
               )
           ]),
 
