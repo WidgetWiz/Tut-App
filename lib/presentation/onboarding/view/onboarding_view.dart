@@ -9,6 +9,7 @@ import 'package:wellos/presentation/resources/stringes_manager.dart';
 import 'package:wellos/presentation/resources/values_manager.dart';
 
 import '../../../app/domain/models.dart';
+import '../viewmodel/onboarding_viewmodel.dart';
 
 class OnboardingView extends StatefulWidget {
   const OnboardingView({super.key});
@@ -19,56 +20,77 @@ class OnboardingView extends StatefulWidget {
 
 class _OnboardingViewState extends State<OnboardingView> {
   final PageController _pageController = PageController();
-  int _currentIndex = 0;
+  final OnBoardingViewModel _viewModel = OnBoardingViewModel();
+
+  _bind() {
+    _viewModel.start();
+  }
+
+  @override
+  void initState() {
+    _bind();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorManager.white,
-      appBar: AppBar(
-        elevation: AppSize.s0,
-        backgroundColor: ColorManager.white,
-        systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: ColorManager.white,
-            statusBarIconBrightness: Brightness.dark),
-      ),
-      body: PageView.builder(
-          controller: _pageController,
-          itemCount: _list.length,
-          onPageChanged: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          itemBuilder: (context, index) {
-            return OnboardingScreen(_list[index]);
-          }),
-      bottomSheet: Container(
-        color: ColorManager.white,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, Routes.loginRoute);
-                  },
-                  child: Text(
-                    AppStrings.skip,
-                    style: Theme.of(context).textTheme.titleMedium,
-                    textAlign: TextAlign.end,
-                  )),
-            ),
-            // widget indicator
-            _getBottomSheetWidget(),
-          ],
-        ),
-      ),
-    );
+    return StreamBuilder<SliderViewObject>(
+        stream: _viewModel.outputSliderViewObject,
+        builder: (context, snapshot) {
+          return _getContentWidget(snapshot.data);
+        });
   }
 
-  Widget _getBottomSheetWidget() {
+  Widget _getContentWidget(SliderViewObject? sliderViewObject) {
+    if (sliderViewObject == null) {
+      return Container();
+    } else {
+      return Scaffold(
+        backgroundColor: ColorManager.white,
+        appBar: AppBar(
+          elevation: AppSize.s0,
+          backgroundColor: ColorManager.white,
+          systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: ColorManager.white,
+              statusBarIconBrightness: Brightness.dark),
+        ),
+        body: PageView.builder(
+            controller: _pageController,
+            itemCount: sliderViewObject.numOfSlides,
+            onPageChanged: (index) {
+              _viewModel.onPageChange(index);
+            },
+            itemBuilder: (context, index) {
+              return OnboardingScreen(sliderViewObject.sliderObject);
+            }),
+        bottomSheet: Container(
+          color: ColorManager.white,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(
+                          context, Routes.loginRoute);
+                    },
+                    child: Text(
+                      AppStrings.skip,
+                      style: Theme.of(context).textTheme.titleMedium,
+                      textAlign: TextAlign.end,
+                    )),
+              ),
+              // widget indicator
+              _getBottomSheetWidget(sliderViewObject),
+            ],
+          ),
+        ),
+      );
+    }
+  }
+
+  Widget _getBottomSheetWidget(SliderViewObject? sliderViewObject) {
     return Container(
       color: ColorManager.primary,
       child: Row(
@@ -85,7 +107,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                 ),
                 onTap: () {
                   //go to previous slide
-                  _pageController.animateToPage(_getPreviousIndex(),
+                  _pageController.animateToPage(_viewModel.goBack(),
                       duration: Duration(
                           milliseconds: AppConstants.sliderAnimationTime),
                       curve: Curves.bounceInOut);
@@ -93,10 +115,10 @@ class _OnboardingViewState extends State<OnboardingView> {
           ),
           Row(children: [
             // circle indicator
-            for (int i = 0; i < _list.length; i++)
+            for (int i = 0; i < sliderViewObject!.numOfSlides; i++)
               Padding(
                 padding: const EdgeInsets.all(AppPadding.p8),
-                child: _getProperCircle(i),
+                child: _getProperCircle(i, sliderViewObject!.currentIndex),
               )
           ]),
 
@@ -110,7 +132,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                   child: SvgPicture.asset(ImageAssets.right_arrow),
                 ),
                 onTap: () {
-                  _pageController.animateToPage(_getNextIndex(),
+                  _pageController.animateToPage(_viewModel.goNext(),
                       duration: Duration(
                           milliseconds: AppConstants.sliderAnimationTime),
                       curve: Curves.bounceInOut);
@@ -121,24 +143,8 @@ class _OnboardingViewState extends State<OnboardingView> {
     );
   }
 
-  int _getPreviousIndex() {
-    if (_currentIndex <= 0) {
-      return _list.length - 1;
-    } else {
-      return _currentIndex - 1;
-    }
-  }
-
-  int _getNextIndex() {
-    if (_currentIndex >= _list.length - 1) {
-      return 0;
-    } else {
-      return _currentIndex + 1;
-    }
-  }
-
-  Widget _getProperCircle(int index) {
-    if (index == _currentIndex) {
+  Widget _getProperCircle(int index, int currentIndex) {
+    if (index == currentIndex) {
       return SvgPicture.asset(ImageAssets.hollow_circle_ic);
     } else {
       return SvgPicture.asset(ImageAssets.solid_circle_ic);
@@ -147,7 +153,7 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   @override
   void dispose() {
-    // TODO: viewmodel dispose
+    _viewModel.dispose();
     super.dispose();
   }
 }
