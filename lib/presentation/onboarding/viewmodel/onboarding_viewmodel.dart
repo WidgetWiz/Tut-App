@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:wellos/app/domain/models.dart';
+import '../../../domain/models.dart';
 import '../../base/baseviewmodel.dart';
 import '../../resources/assets_manager.dart';
 import '../../resources/stringes_manager.dart';
