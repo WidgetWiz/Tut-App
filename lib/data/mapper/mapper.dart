@@ -1,4 +1,4 @@
-import 'package:wellos/domain/models.dart';
+import 'package:wellos/domain/model/models.dart';
 import '../../app/constants.dart';
 import '../responses/responses.dart';
 import 'package:wellos/app/extensions.dart';

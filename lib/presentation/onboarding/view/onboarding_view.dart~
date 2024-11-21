@@ -39,7 +39,7 @@ class _OnboardingViewState extends State<OnboardingView> {
           return _getContentWidget(snapshot.data);
         });
   }
- 
+
   Widget _getContentWidget(SliderViewObject? sliderViewObject) {
     if (sliderViewObject == null) {
       return Container();

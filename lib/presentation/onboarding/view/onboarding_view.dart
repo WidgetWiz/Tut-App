@@ -7,7 +7,7 @@ import 'package:wellos/presentation/resources/constanst_manager.dart';
 import 'package:wellos/presentation/resources/routes_manager.dart';
 import 'package:wellos/presentation/resources/stringes_manager.dart';
 import 'package:wellos/presentation/resources/values_manager.dart';
-import '../../../domain/models.dart';
+import '../../../domain/model/models.dart';
 import '../viewmodel/onboarding_viewmodel.dart';
 
 class OnboardingView extends StatefulWidget {
