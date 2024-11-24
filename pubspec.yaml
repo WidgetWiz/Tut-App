@@ -42,6 +42,9 @@ dependencies:
   retrofit_generator: ^9.1.5
   dartz: ^0.10.1
   internet_connection_checker: ^1.0.0+1
+  pretty_dio_logger: ^1.4.0
+  shared_preferences: ^2.3.3
+  freezed: ^2.5.7
 
 dev_dependencies:
   flutter_test:
