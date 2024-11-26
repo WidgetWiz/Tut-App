@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dartz/dartz.dart';
 import 'package:wellos/presentation/base/baseviewmodel.dart';
+import 'package:wellos/presentation/common/freezed_data_class.dart';
 
 class LoginViewModel extends BaseViewModel
     with LoginViewModelInputs, LoginViewModelOutputs {
@@ -9,6 +10,9 @@ class LoginViewModel extends BaseViewModel
       StreamController<String>.broadcast();
   final StreamController _passwordStreamController =
       StreamController<String>.broadcast();
+  var loginObject = LoginObject("", "");
+  final LoginUseCase _loginUseCase;
+  LoginViewModel(this.loginUseCase);
   //input
   @override
   void dispose() {
@@ -18,8 +22,7 @@ class LoginViewModel extends BaseViewModel
 
   @override
   login() {
-    // TODO: implement login
-    throw UnimplementedError();
+
   }
 
   //output
@@ -49,11 +52,13 @@ class LoginViewModel extends BaseViewModel
   @override
   setPassword(String password) {
     inputPassword.add(password);
+    loginObject = loginObject.copyWith(password: password);
   }
 
   @override
   setUserName(String userName) {
     inputUserName.add(userName);
+    loginObject = loginObject.copyWith(userName: userName);
   }
 
   @override
