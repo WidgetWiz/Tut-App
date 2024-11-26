@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
+import 'package:wellos/domain/usecase/login_usecase.dart';
 import 'package:wellos/presentation/base/baseviewmodel.dart';
 import 'package:wellos/presentation/common/freezed_data_class.dart';
 
@@ -21,8 +22,17 @@ class LoginViewModel extends BaseViewModel
   }
 
   @override
-  login() {
-
+  login() async {
+    (await _loginUseCase.execute(
+            LoginUseCaseInput(loginObject.userName, loginObject.password)))
+        .fold(
+            (failure) => {
+                  print(failure.message),
+                },
+            (data) => {
+                  //success
+                  print(data.customer?.name)
+                });
   }
 
   //output
