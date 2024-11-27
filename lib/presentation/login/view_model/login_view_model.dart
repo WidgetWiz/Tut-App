@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:dartz/dartz.dart';
 import 'package:wellos/domain/usecase/login_usecase.dart';
 import 'package:wellos/presentation/base/baseviewmodel.dart';
 import 'package:wellos/presentation/common/freezed_data_class.dart';
@@ -13,7 +11,7 @@ class LoginViewModel extends BaseViewModel
       StreamController<String>.broadcast();
   var loginObject = LoginObject("", "");
   final LoginUseCase _loginUseCase;
-  LoginViewModel(this.loginUseCase);
+  LoginViewModel(this._loginUseCase);
   //input
   @override
   void dispose() {

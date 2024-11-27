@@ -13,7 +13,7 @@ class LoginViewModel extends BaseViewModel
       StreamController<String>.broadcast();
   var loginObject = LoginObject("", "");
   final LoginUseCase _loginUseCase;
-  LoginViewModel(this.loginUseCase);
+  LoginViewModel(this._loginUseCase);
   //input
   @override
   void dispose() {
@@ -31,7 +31,7 @@ class LoginViewModel extends BaseViewModel
                 },
             (data) => {
                   //success
-                  print(data.customer.name)
+                  print(data.customer?.name)
                 });
   }
 

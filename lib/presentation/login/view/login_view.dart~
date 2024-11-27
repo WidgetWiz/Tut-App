@@ -15,8 +15,8 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   final LoginViewModel _viewModel = LoginViewModel(_loginUseCase());
 
-  final TextEditingController _userNameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  TextEditingController _userNameController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
   _bind() {
     _viewModel.start();
@@ -34,7 +34,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return _getContentWidget();
+    return Container();
   }
 
   Widget _getContentWidget() {
@@ -60,7 +60,7 @@ class _LoginViewState extends State<LoginView> {
   }
 
   @override
-  void dispose() {
+  void despose() {
     _viewModel.dispose();
     super.dispose();
   }
