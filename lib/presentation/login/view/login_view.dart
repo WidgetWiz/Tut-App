@@ -14,7 +14,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final LoginViewModel _viewModel = LoginViewModel(_loginUseCase());
+  final LoginViewModel _viewModel = LoginViewModel();
 
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -40,9 +40,9 @@ class _LoginViewState extends State<LoginView> {
 
   Widget _getContentWidget() {
     return Scaffold(
+      backgroundColor: ColorManager.white,
       body: Container(
           padding: EdgeInsets.only(top: AppPadding.p100),
-          color: ColorManager.white,
           child: SingleChildScrollView(
             child: Form(
               key: _formkey,
@@ -65,18 +65,40 @@ class _LoginViewState extends State<LoginView> {
                           decoration: InputDecoration(
                             hintText: AppStrings.usernameHint,
                             labelText: AppStrings.usernameHint,
+                            hintStyle: TextStyle(color: ColorManager.grey),
+                            labelStyle: TextStyle(color: ColorManager.primary),
                             errorText: (snapshot.data ?? true)
                                 ? null
                                 : AppStrings.invalidUserName,
+                            errorStyle: TextStyle(color: ColorManager.error),
+                            prefixIcon: Icon(Icons.person,
+                                color: ColorManager
+                                    .primary), // Icon before the text
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.circular(30), // Rounded corners
+                              borderSide:
+                                  BorderSide(color: ColorManager.primary),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide:
+                                  BorderSide(color: ColorManager.primary),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide:
+                                  BorderSide(color: ColorManager.primary),
+                            ),
                           ),
                         );
                       },
                     ),
                   ),
-                  SizedBox(
-                    height: AppSize.s20,
-                  ),
-                  //password
+
+                  SizedBox(height: AppSize.s20),
+
+// Password field with similar enhancements
                   Padding(
                     padding: EdgeInsets.only(
                         left: AppPadding.p20, right: AppPadding.p20),
@@ -86,32 +108,87 @@ class _LoginViewState extends State<LoginView> {
                         return TextFormField(
                           keyboardType: TextInputType.visiblePassword,
                           controller: _passwordController,
+                          obscureText: true, // Hide password input
                           decoration: InputDecoration(
                             hintText: AppStrings.passwordHint,
                             labelText: AppStrings.passwordHint,
+                            hintStyle: TextStyle(color: ColorManager.grey),
+                            labelStyle: TextStyle(color: ColorManager.primary),
                             errorText: (snapshot.data ?? true)
                                 ? null
                                 : AppStrings.forgotPassword,
+                            errorStyle: TextStyle(color: ColorManager.error),
+                            prefixIcon: Icon(Icons.lock,
+                                color: ColorManager
+                                    .primary), // Lock icon before the password field
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.circular(30), // Rounded corners
+                              borderSide:
+                                  BorderSide(color: ColorManager.primary),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide:
+                                  BorderSide(color: ColorManager.primary),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide:
+                                  BorderSide(color: ColorManager.primary),
+                            ),
                           ),
                         );
                       },
                     ),
                   ),
+                  SizedBox(height: AppSize.s20),
                   Padding(
                     padding: EdgeInsets.only(
                         left: AppPadding.p20, right: AppPadding.p20),
                     child: StreamBuilder<bool>(
                       stream: _viewModel.outAreAllInputsValid,
                       builder: (context, snapshot) {
-                        return ElevatedButton(
-                            onPressed: (snapshot.data ?? false)
-                                ? () {
-                                    _viewModel.login();
-                                  }
-                                : null,
-                            child: Text(AppStrings.login));
+                        return SizedBox(
+                          width: double.infinity,
+                          height: AppSize.s40,
+                          child: ElevatedButton(
+                              onPressed: (snapshot.data ?? false)
+                                  ? () {
+                                      _viewModel.login();
+                                    }
+                                  : null,
+                              child: Text(
+                                AppStrings.login,
+                                style: TextStyle(
+                                  color: ColorManager.white,
+                                ),
+                              )),
+                        );
                       },
                     ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: AppSize.s8, left: AppSize.s40, right: AppSize.s40),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                AppStrings.forgotPassword,
+                                style: Theme.of(context).textTheme.titleMedium,
+                                textAlign: TextAlign.end,
+                              )),
+                          TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                AppStrings.register,
+                                style: Theme.of(context).textTheme.titleMedium,
+                                textAlign: TextAlign.end,
+                              )),
+                        ]),
                   ),
                 ],
               ),

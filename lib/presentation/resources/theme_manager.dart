@@ -41,7 +41,7 @@ ThemeData getApplicationTheme() {
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
             textStyle: getRegularStyle(
-                color: ColorManager.white, fontSize: FontSize.s17),
+                color: ColorManager.white, fontSize: FontSize.s18),
             backgroundColor: ColorManager.primary,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppSize.s12)))),
@@ -71,7 +71,8 @@ ThemeData getApplicationTheme() {
             borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
         //focused
         focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: ColorManager.grey, width: AppSize.s1),
+            borderSide:
+                BorderSide(color: ColorManager.primary, width: AppSize.s1),
             borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8))),
         //error
         errorBorder: OutlineInputBorder(
