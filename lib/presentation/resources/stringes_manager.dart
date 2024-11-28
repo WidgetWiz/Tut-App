@@ -22,36 +22,20 @@ class AppStrings {
       "Tut app is an awesome flutter application using clean architecture #4";
 
   static const String skip = "Skip";
-
   static const String invalidPassword = "password is wrong";
-
   static const String usernameHint = "UserName";
-
   static const String passwordHint = "Password";
-
   static const String login = "Login";
-
   static const String signUp = "Sign Up";
-
   static const String createNewAccount = "Create New Account";
-
   static const String loginToYourAccount = "Login to your account";
-
   static const String resetPassword = "Reset Password";
-
   static const String confirm = "Confirm";
-
   static const String ok = "Ok";
-
   static const String invalidUserName = "Invalid User Name";
-
   static const String invalidMobileNumber = "Invalid Mobile Number";
-
   static const String invalidEmail = "Invalid Email";
-
   static const String register = "Register";
-
   static const String alreadyHaveAccount = "Already have an account? login";
-
   static const String forgotPassword = "Forgot Password?";
 }

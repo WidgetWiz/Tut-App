@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wellos/presentation/login/view_model/login_view_model.dart';
 import 'package:wellos/presentation/resources/color_manager.dart';
+import 'package:wellos/presentation/resources/stringes_manager.dart';
 import 'package:wellos/presentation/resources/values_manager.dart';
 
 import '../../resources/assets_manager.dart';
@@ -51,6 +52,66 @@ class _LoginViewState extends State<LoginView> {
                       child: Image(image: AssetImage(ImageAssets.splashLogo))),
                   SizedBox(
                     height: AppSize.s20,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: AppPadding.p20, right: AppPadding.p20),
+                    child: StreamBuilder<bool>(
+                      stream: _viewModel.outIsUserNameValid,
+                      builder: (context, snapshot) {
+                        return TextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          controller: _userNameController,
+                          decoration: InputDecoration(
+                            hintText: AppStrings.usernameHint,
+                            labelText: AppStrings.usernameHint,
+                            errorText: (snapshot.data ?? true)
+                                ? null
+                                : AppStrings.invalidUserName,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: AppSize.s20,
+                  ),
+                  //password
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: AppPadding.p20, right: AppPadding.p20),
+                    child: StreamBuilder<bool>(
+                      stream: _viewModel.outIsPasswordValid,
+                      builder: (context, snapshot) {
+                        return TextFormField(
+                          keyboardType: TextInputType.visiblePassword,
+                          controller: _passwordController,
+                          decoration: InputDecoration(
+                            hintText: AppStrings.passwordHint,
+                            labelText: AppStrings.passwordHint,
+                            errorText: (snapshot.data ?? true)
+                                ? null
+                                : AppStrings.forgotPassword,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: AppPadding.p20, right: AppPadding.p20),
+                    child: StreamBuilder<bool>(
+                      stream: _viewModel.outAreAllInputsValid,
+                      builder: (context, snapshot) {
+                        return ElevatedButton(
+                            onPressed: (snapshot.data ?? false)
+                                ? () {
+                                    _viewModel.login();
+                                  }
+                                : null,
+                            child: Text(AppStrings.login));
+                      },
+                    ),
                   ),
                 ],
               ),
