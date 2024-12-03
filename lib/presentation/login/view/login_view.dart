@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wellos/app/di.dart';
+import 'package:wellos/domain/usecase/login_usecase.dart';
 import 'package:wellos/presentation/login/view_model/login_view_model.dart';
 import 'package:wellos/presentation/resources/color_manager.dart';
 import 'package:wellos/presentation/resources/stringes_manager.dart';
@@ -14,8 +16,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final LoginViewModel _viewModel = LoginViewModel();
-
+  final LoginViewModel _viewModel = instance<LoginViewModel>();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formkey = GlobalKey<FormState>();

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wellos/app/di.dart';
 import 'package:wellos/presentation/forgot_password/forgot_password_view.dart';
 import 'package:wellos/presentation/login/view/login_view.dart';
 import 'package:wellos/presentation/main/main_view.dart';
@@ -26,6 +27,7 @@ class RouteGenerator {
       case Routes.onBoardingRoute:
         return MaterialPageRoute(builder: (_) => OnboardingView());
       case Routes.loginRoute:
+        initLoginModule();
         return MaterialPageRoute(builder: (_) => LoginView());
       case Routes.registerRoute:
         return MaterialPageRoute(builder: (_) => RegisterView());

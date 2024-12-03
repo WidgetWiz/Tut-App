@@ -13,9 +13,8 @@ class LoginViewModel extends BaseViewModel
       StreamController<void>.broadcast();
 
   var loginObject = LoginObject("", "");
-  // final LoginUseCase _loginUseCase;
-  // LoginViewModel(this._loginUseCase);
-  LoginViewModel();
+  final LoginUseCase _loginUseCase;
+  LoginViewModel(this._loginUseCase);
 
   //input
   @override
@@ -26,18 +25,18 @@ class LoginViewModel extends BaseViewModel
   }
 
   @override
-  // login() async {
-  //   (await _loginUseCase.execute(
-  //           LoginUseCaseInput(loginObject.userName, loginObject.password)))
-  //       .fold(
-  //           (failure) => {
-  //                 print(failure.message),
-  //               },
-  //           (data) => {
-  //                 //success
-  //                 print(data.customer?.name)
-  //               });
-  // }
+  login() async {
+    (await _loginUseCase.execute(
+            LoginUseCaseInput(loginObject.userName, loginObject.password)))
+        .fold(
+            (failure) => {
+                  print(failure.message),
+                },
+            (data) => {
+                  //success
+                  print(data.customer?.name)
+                });
+  }
 
   //output
   @override
@@ -93,12 +92,6 @@ class LoginViewModel extends BaseViewModel
   @override
   void start() {
     // TODO: implement start
-  }
-
-  @override
-  login() {
-    // TODO: implement login
-    throw UnimplementedError();
   }
 }
 
