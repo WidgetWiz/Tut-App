@@ -4,7 +4,7 @@ import 'package:wellos/presentation/resources/assets_manager.dart';
 import 'package:wellos/presentation/resources/color_manager.dart';
 import 'package:wellos/presentation/resources/styles_manager.dart';
 import 'package:wellos/presentation/resources/values_manager.dart';
-import '../resources/stringes_manager.dart';
+import '../../resources/stringes_manager.dart';
 
 enum StateRendererType {
   popupLoadingState,
@@ -51,8 +51,10 @@ class StateRenderer extends StatelessWidget {
         ]);
 
       case StateRendererType.fullScreenLoadingState:
-        return _getColumnItems(
-            [_getAnimatedImage(JsonAssets.loadingAnimation), _getMessageWidget(message)]);
+        return _getColumnItems([
+          _getAnimatedImage(JsonAssets.loadingAnimation),
+          _getMessageWidget(message)
+        ]);
 
       case StateRendererType.fullScreenErrorState:
         return _getColumnItems([
@@ -62,8 +64,10 @@ class StateRenderer extends StatelessWidget {
         ]);
 
       case StateRendererType.fullScreenEmptyState:
-        return _getColumnItems(
-            [_getAnimatedImage(JsonAssets.emptyAnimation), _getMessageWidget(message)]);
+        return _getColumnItems([
+          _getAnimatedImage(JsonAssets.emptyAnimation),
+          _getMessageWidget(message)
+        ]);
 
       case StateRendererType.contentState:
         return Container();
