@@ -38,4 +38,6 @@ class AppStrings {
   static const String register = "Register";
   static const String alreadyHaveAccount = "Already have an account? login";
   static const String forgotPassword = "Forgot Password?";
+  static const String loading = "Loading";
+  static const String retry = "Retry Again";
 }

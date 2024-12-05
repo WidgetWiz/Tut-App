@@ -102,7 +102,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                 child: SizedBox(
                   width: AppSize.s20,
                   height: AppSize.s20,
-                  child: SvgPicture.asset(ImageAssets.left_arrow),
+                  child: SvgPicture.asset(ImageAssets.leftArrow),
                 ),
                 onTap: () {
                   //go to previous slide
@@ -128,7 +128,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                 child: SizedBox(
                   width: AppSize.s20,
                   height: AppSize.s20,
-                  child: SvgPicture.asset(ImageAssets.right_arrow),
+                  child: SvgPicture.asset(ImageAssets.rightArrow),
                 ),
                 onTap: () {
                   _pageController.animateToPage(_viewModel.goNext(),
@@ -144,9 +144,9 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   Widget _getProperCircle(int index, int currentIndex) {
     if (index == currentIndex) {
-      return SvgPicture.asset(ImageAssets.hollow_circle_ic);
+      return SvgPicture.asset(ImageAssets.hollowCircleIc);
     } else {
-      return SvgPicture.asset(ImageAssets.solid_circle_ic);
+      return SvgPicture.asset(ImageAssets.solidCircleIc);
     }
   }
 
