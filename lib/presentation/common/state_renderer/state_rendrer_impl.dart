@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:wellos/presentation/common/state_renderer/state_renderer.dart';
 
 import '../../../app/constants.dart';
@@ -48,4 +50,47 @@ class EmptyState extends FlowState {
   @override
   StateRendererType getStateRendererType() =>
       StateRendererType.fullScreenEmptyState;
+}
+
+extension FlowStateExtension on FlowState {
+  Widget getScreenWidget(
+      BuildContext context, Widget contentScreenWidget, Function retryAction) {
+    switch (runtimeType) {
+      case LoadingState:
+        {
+          if (getStateRendererType() == StateRendererType.popupLoadingState) {
+            showPopup(context, getStateRendererType(), getMessage());
+            return contentScreenWidget;
+          } else {
+            return StateRenderer(
+                stateRendererType: getStateRendererType(),
+                message: getMessage(),
+                retryActionFunction: retryAction);
+          }
+        }
+      case ErrorState:
+        {}
+      case ContentState:
+        {}
+      case EmptyState:
+        {}
+      default:
+        {
+          break;
+        }
+    }
+  }
+
+  showPopup(BuildContext context, StateRendererType stateRendererType,
+      String message) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) => StateRenderer(
+                stateRendererType: stateRendererType,
+                message: message,
+                retryActionFunction: () {},
+              ));
+    });
+  }
 }
